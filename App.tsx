@@ -6,6 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { LILAC_COLOR, PRIMARY_COLOR } from './constants';
 import { RadialGradientCircle } from './src/components/RadialGradientCircle';
 import { AddTodo } from './src/components/AddTodo';
+import CustomButton from './src/components/CustomButton';
 
 function App(): React.JSX.Element {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -17,6 +18,7 @@ function App(): React.JSX.Element {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
+        <CustomButton title="Done" onPress={() => { }} />
         <RadialGradientCircle
           color={'#e1dca2'}
           radius={250}
