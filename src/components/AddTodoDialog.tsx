@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input } from 'react-native-elements';
-import { LILAC_COLOR } from '../../constants';
+import { LILAC_COLOR, PRIMARY_COLOR } from '../../constants';
 import CustomButton from './CustomButton';
 import { Todo } from '../../types/todo';
 import { addTodo } from '../../api/requests/todo';
@@ -44,8 +44,8 @@ export const AddTodoDialog = ({ visible, onClose, onNewItem }: Props) => {
                 textAlignVertical="top"
             />
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <CustomButton title="Cancel" onPress={onClose} type="outlined" width={150} />
-                <CustomButton title="Done" onPress={addNewTodo} type="solid" width={150} />
+                <CustomButton color={PRIMARY_COLOR} title="Cancel" onPress={onClose} type="outlined" width={150} />
+                <CustomButton color={PRIMARY_COLOR} title="Done" onPress={addNewTodo} type="solid" width={150} />
             </View>
         </View>
     );

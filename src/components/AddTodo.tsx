@@ -1,7 +1,7 @@
-import { StyleSheet, View } from 'react-native';
+import { Keyboard, Platform, StyleSheet, View } from 'react-native';
 import { PRIMARY_COLOR } from '../../constants';
 import { Button, Icon } from 'react-native-elements';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AddTodoDialog } from './AddTodoDialog';
 import { Todo } from '../../types/todo';
 
@@ -11,11 +11,30 @@ interface Props {
 
 export const AddTodo = ({ onNewItem }: Props) => {
     const [addDialogActive, setAddDialogActive] = useState(false);
+    const [hideAddButton, setHideAddButton] = useState(false);
+
+    useEffect(() => {
+        const showSubscription = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow', () => {
+            if (addDialogActive) {
+                setHideAddButton(true);
+            }
+        });
+
+        const hideSubscription = Keyboard.addListener(Platform.OS == 'ios' ? 'keyboardWillHide' : 'keyboardDidHide', () => {
+            setHideAddButton(false);
+        });
+
+        return () => {
+            showSubscription.remove();
+            hideSubscription.remove();
+        };
+    }, [addDialogActive]);
+
     return (
         <View style={styles.circleButtonContainer}>
             <AddTodoDialog onNewItem={onNewItem} visible={addDialogActive} onClose={() => setAddDialogActive(false)} />
 
-            <Button
+            {!hideAddButton && <Button
                 title=""
                 buttonStyle={styles.circleButton}
                 onPress={() => setAddDialogActive(true)}
@@ -27,7 +46,7 @@ export const AddTodo = ({ onNewItem }: Props) => {
                         color="white"
                     />
                 }
-            />
+            />}
         </View>
     );
 };
