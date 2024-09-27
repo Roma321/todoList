@@ -7,7 +7,7 @@ import DeleteIcon from '../assets/Delete.svg';
 import { TodoStatus } from '../../types/todoStatus';
 import { DONE_COLOR, PENDING_COLOR, WONT_DO_COLOR } from '../../constants';
 import { StatusButton } from './StatusButton';
-import { updateTodoStatus, deleteTodo as deleteTodoAPI } from '../../api/requests/todo';
+import { updateTodoStatus, deleteTodo as deleteTodoAPI } from '../api/requests/todo';
 
 interface Props {
     todo: Todo;

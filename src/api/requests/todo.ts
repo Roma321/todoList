@@ -1,5 +1,5 @@
-import { Todo } from '../../types/todo';
-import { TodoStatus } from '../../types/todoStatus';
+import { Todo } from '../../../types/todo';
+import { TodoStatus } from '../../../types/todoStatus';
 import api from '../api';
 
 export function getTodos() {
@@ -21,4 +21,8 @@ export function deleteTodo(id: number) {
         'title': string,
         'description': string
     }>();
+}
+
+export function updateTodo(id: number, title: string, description: string) {
+    return api.put(`v1/todo/${id}`, { json: { title, description } }).json<Todo>()
 }

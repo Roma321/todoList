@@ -4,7 +4,7 @@ import { Button, Icon } from 'react-native-elements';
 import React, { useEffect, useState } from 'react';
 import { EditTodoDialog } from './EditTodoDialog';
 import { Todo } from '../../types/todo';
-import { addTodo } from '../../api/requests/todo';
+import { addTodo } from '../api/requests/todo';
 
 interface Props {
     onNewItem: (item: Todo) => void;
