@@ -44,8 +44,8 @@ export const AddTodoDialog = ({ visible, onClose, onNewItem }: Props) => {
                 textAlignVertical="top"
             />
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <CustomButton color={PRIMARY_COLOR} title="Cancel" onPress={onClose} type="outlined" width={150} />
-                <CustomButton color={PRIMARY_COLOR} title="Done" onPress={addNewTodo} type="solid" width={150} />
+                <CustomButton fontSize={16} color={PRIMARY_COLOR} title="Cancel" onPress={onClose} type="outlined" width={121} height={36} />
+                <CustomButton fontSize={16} color={PRIMARY_COLOR} title="Done" onPress={addNewTodo} type="solid" width={121} height={36} />
             </View>
         </View>
     );

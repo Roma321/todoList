@@ -37,7 +37,6 @@ export class CredentialsHelper {
     }
 
     static async isAuthorised() {
-        console.log('check if authorised', await this.getAccessToken(), await this.isExpired());
         return await this.getAccessToken() && !(await this.isExpired());
     }
 

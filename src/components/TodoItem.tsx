@@ -1,39 +1,54 @@
-import { ColorValue, StyleSheet, View } from 'react-native';
+import { ColorValue, StatusBar, StyleSheet, View } from 'react-native';
 import { Todo } from '../../types/todo';
 import { Text } from 'react-native-elements';
 import React from 'react';
 import EditIcon from '../assets/Edit.svg';
 import DeleteIcon from '../assets/Delete.svg';
 import { TodoStatus } from '../../types/todoStatus';
-import { DONE_COLOR, PENDING_COLOR, WONT_DO_COLOR } from '../../constants';
+import { DONE_COLOR, PENDING_COLOR, PRIMARY_COLOR, WONT_DO_COLOR } from '../../constants';
+import CustomButton from './CustomButton';
+import { StatusButton } from './StatusButton';
+import { updateTodoStatus } from '../../api/requests/todo';
 
 interface Props {
     todo: Todo;
+    onUpdate: (todo: Todo) => void;
 }
 
-const STATUS_TO_COLOR: Record<TodoStatus, ColorValue> = {
+export const STATUS_TO_COLOR: Record<TodoStatus, ColorValue> = {
     [TodoStatus.pending]: PENDING_COLOR,
     [TodoStatus.wontDo]: WONT_DO_COLOR,
     [TodoStatus.done]: DONE_COLOR,
 };
 
-export const TodoItem = ({ todo }: Props) => {
+export const TodoItem = ({ todo, onUpdate }: Props) => {
+
+    const updateStatus = (status: TodoStatus) => {
+        updateTodoStatus(todo.id, status).then(onUpdate);
+    };
     return <View style={styles.outerContainer}>
         <View style={styles.container}>
-            <View style={styles.infoBlock}>
-                <View style={[styles.circle, { backgroundColor: STATUS_TO_COLOR[todo.status] }]} />
-                <View>
-                    <Text style={styles.title}>{todo.title}</Text>
-                    <Text style={styles.description}>{todo.description}</Text>
+            <View style={styles.mainRow}>
+                <View style={styles.infoBlock}>
+                    <View style={[styles.circle, { backgroundColor: STATUS_TO_COLOR[todo.status] }]} />
+                    <View>
+                        <Text style={styles.title}>{todo.title}</Text>
+                        <Text style={styles.description}>{todo.description}</Text>
+                    </View>
+                </View>
+                <View style={styles.icons}>
+                    <View style={styles.icon}>
+                        <EditIcon />
+                    </View>
+                    <View style={styles.icon}>
+                        <DeleteIcon />
+                    </View>
                 </View>
             </View>
-            <View style={styles.icons}>
-                <View style={styles.icon}>
-                    <EditIcon />
-                </View>
-                <View style={styles.icon}>
-                    <DeleteIcon />
-                </View>
+            <View style={styles.buttonRow}>
+                <StatusButton onPress={updateStatus} todoStatus={todo.status} managingStatus={TodoStatus.pending} title="Pending" />
+                <StatusButton onPress={updateStatus} todoStatus={todo.status} managingStatus={TodoStatus.done} title="Done" />
+                <StatusButton onPress={updateStatus} todoStatus={todo.status} managingStatus={TodoStatus.wontDo} title="Won't do" />
             </View>
         </View>
     </View>;
@@ -47,9 +62,6 @@ const styles = StyleSheet.create({
         alignContent: 'center',
     },
     container: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
         padding: 16,
         backgroundColor: 'white',
         borderRadius: 8,
@@ -60,9 +72,16 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         marginVertical: 8,
     },
+    mainRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
     infoBlock: {
         flexDirection: 'row',
         alignItems: 'center',
+        flex: 6,
+        paddingRight: 8,
     },
     circle: {
         width: 16,
@@ -72,17 +91,25 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     title: {
-        fontSize: 12,
+        fontSize: 9,
         color: 'grey',
     },
     description: {
-        fontSize: 16,
+        fontSize: 14,
         color: 'black',
     },
     icons: {
         flexDirection: 'row',
+        flex: 2,
+        marginLeft: 8,
     },
     icon: {
         marginLeft: 16,
+    },
+    buttonRow: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 4,
     },
 });

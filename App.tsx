@@ -19,10 +19,18 @@ function App(): React.JSX.Element {
     setTodos([...todos, todo]);
   };
 
+  const onUpdate = (todo: Todo) => {
+    const toUpdate = todos.find(it => it.id === todo.id);
+    if (toUpdate) {
+      Object.assign(toUpdate, todo);
+      setTodos([...todos]);
+    }
+  };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <FlatList style={{ zIndex: 2, width: '100%', padding: 20 }} data={todos} renderItem={(todo) => <TodoItem todo={todo.item} />} />
+        <FlatList style={{ zIndex: 2, width: '100%', padding: 20 }} data={todos} renderItem={(todo) => <TodoItem onUpdate={onUpdate} todo={todo.item} />} />
         <RadialGradientCircle
           color={'#e1dca2'}
           radius={250}
