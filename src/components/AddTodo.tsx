@@ -3,12 +3,18 @@ import { PRIMARY_COLOR } from '../../constants';
 import { Button, Icon } from 'react-native-elements';
 import React, { useState } from 'react';
 import { AddTodoDialog } from './AddTodoDialog';
+import CustomButton from './CustomButton';
+import { Todo } from '../../types/todo';
 
-export const AddTodo = () => {
+interface Props {
+    onNewItem: (item: Todo) => void;
+}
+
+export const AddTodo = ({onNewItem }: Props) => {
     const [addDialogActive, setAddDialogActive] = useState(false);
     return (
         <View style={styles.circleButtonContainer}>
-            <AddTodoDialog visible={addDialogActive} onClose={() => setAddDialogActive(false)} />
+            <AddTodoDialog onNewItem={onNewItem} visible={addDialogActive} onClose={() => setAddDialogActive(false)} />
 
             <Button
                 title=""

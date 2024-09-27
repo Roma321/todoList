@@ -15,10 +15,14 @@ function App(): React.JSX.Element {
     getTodos().then(setTodos);
   }, []);
 
+  const onNewItem = (todo: Todo) => {
+    setTodos([...todos, todo]);
+  };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <CustomButton title="Done" onPress={() => { }} />
+        <CustomButton title="Don000e" onPress={() => { }} width={150} type="outlined" />
         <RadialGradientCircle
           color={'#e1dca2'}
           radius={250}
@@ -37,7 +41,7 @@ function App(): React.JSX.Element {
           top={150}
           left={150}
         />
-        <AddTodo />
+        <AddTodo onNewItem={onNewItem} />
       </SafeAreaView>
     </SafeAreaProvider>
   );
