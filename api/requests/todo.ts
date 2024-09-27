@@ -15,3 +15,10 @@ export function addTodo(title: string, description: string) {
 export function updateTodoStatus(id: number, status: TodoStatus) {
     return api.put(`v1/todo/status/${id}`, { json: { status } }).json<Todo>();
 }
+
+export function deleteTodo(id: number) {
+    return api.delete(`v1/todo/${id}`).json<{
+        'title': string,
+        'description': string
+    }>();
+}

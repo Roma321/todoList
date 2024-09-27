@@ -27,10 +27,14 @@ function App(): React.JSX.Element {
     }
   };
 
+  const onDelete = (id: number) => {
+    setTodos(todos.filter(it => it.id !== id));
+  };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <FlatList style={{ zIndex: 2, width: '100%', padding: 20 }} data={todos} renderItem={(todo) => <TodoItem onUpdate={onUpdate} todo={todo.item} />} />
+        <FlatList style={{ zIndex: 2, width: '100%', padding: 20 }} data={todos} renderItem={(todo) => <TodoItem onDelete={onDelete} onUpdate={onUpdate} todo={todo.item} />} />
         <RadialGradientCircle
           color={'#e1dca2'}
           radius={250}

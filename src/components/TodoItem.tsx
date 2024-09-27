@@ -1,18 +1,18 @@
-import { ColorValue, StatusBar, StyleSheet, View } from 'react-native';
+import { ColorValue, StyleSheet, View } from 'react-native';
 import { Todo } from '../../types/todo';
 import { Text } from 'react-native-elements';
 import React from 'react';
 import EditIcon from '../assets/Edit.svg';
 import DeleteIcon from '../assets/Delete.svg';
 import { TodoStatus } from '../../types/todoStatus';
-import { DONE_COLOR, PENDING_COLOR, PRIMARY_COLOR, WONT_DO_COLOR } from '../../constants';
-import CustomButton from './CustomButton';
+import { DONE_COLOR, PENDING_COLOR, WONT_DO_COLOR } from '../../constants';
 import { StatusButton } from './StatusButton';
-import { updateTodoStatus } from '../../api/requests/todo';
+import { updateTodoStatus, deleteTodo as deleteTodoAPI } from '../../api/requests/todo';
 
 interface Props {
     todo: Todo;
     onUpdate: (todo: Todo) => void;
+    onDelete: (id: number) => void;
 }
 
 export const STATUS_TO_COLOR: Record<TodoStatus, ColorValue> = {
@@ -21,10 +21,14 @@ export const STATUS_TO_COLOR: Record<TodoStatus, ColorValue> = {
     [TodoStatus.done]: DONE_COLOR,
 };
 
-export const TodoItem = ({ todo, onUpdate }: Props) => {
+export const TodoItem = ({ todo, onUpdate, onDelete }: Props) => {
 
     const updateStatus = (status: TodoStatus) => {
         updateTodoStatus(todo.id, status).then(onUpdate);
+    };
+
+    const deleteTodo = () => {
+        deleteTodoAPI(todo.id).then(() => onDelete(todo.id));
     };
     return <View style={styles.outerContainer}>
         <View style={styles.container}>
@@ -41,7 +45,7 @@ export const TodoItem = ({ todo, onUpdate }: Props) => {
                         <EditIcon />
                     </View>
                     <View style={styles.icon}>
-                        <DeleteIcon />
+                        <DeleteIcon onPress={deleteTodo} />
                     </View>
                 </View>
             </View>
