@@ -31,6 +31,7 @@ export const TodoItem = ({ todo, onUpdate, onDelete, onEditPressed }: Props) => 
     const deleteTodo = () => {
         deleteTodoAPI(todo.id).then(() => onDelete(todo.id));
     };
+    
     return <View style={styles.outerContainer}>
         <View style={styles.container}>
             <View style={styles.mainRow}>
@@ -55,9 +56,6 @@ export const TodoItem = ({ todo, onUpdate, onDelete, onEditPressed }: Props) => 
                 <StatusButton onPress={updateStatus} todoStatus={todo.status} managingStatus={TodoStatus.done} title="Done" />
                 <StatusButton onPress={updateStatus} todoStatus={todo.status} managingStatus={TodoStatus.wontDo} title="Won't do" />
             </View>
-            {/* <View style={{ position: 'absolute' }}>
-                <Text>000000000000000000000000000000000</Text>
-            </View> */}
         </View>
     </View>;
 };
@@ -72,7 +70,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 16,
         backgroundColor: 'white',
-        borderRadius: 8,
+        borderRadius: 15,
         elevation: 1,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
