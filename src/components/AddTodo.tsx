@@ -38,25 +38,37 @@ export const AddTodo = ({ onNewItem }: Props) => {
     }, [addDialogActive]);
 
     return (
-            <><EditTodoDialog onEditEnd={addNewTodo} visible={addDialogActive} onClose={() => setAddDialogActive(false)} />
-                {!hideAddButton && <Button
-                    title=""
-                    buttonStyle={styles.circleButton}
-                    onPress={() => setAddDialogActive(true)}
-                    icon={
-                        <Icon
-                            name="add"
-                            type="material"
-                            size={32}
-                            color="white"
-                        />
-                    }
-                />}
-            </>
+        <View style={styles.circleButtonContainer}>
+            <EditTodoDialog onEditEnd={addNewTodo} visible={addDialogActive} onClose={() => setAddDialogActive(false)} />
+
+            {!hideAddButton && <Button
+                title=""
+                buttonStyle={styles.circleButton}
+                onPress={() => setAddDialogActive(true)}
+                icon={
+                    <Icon
+                        name="add"
+                        type="material"
+                        size={32}
+                        color="white"
+                    />
+                }
+            />}
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
+    circleButtonContainer: {
+        position: 'absolute',
+        bottom: 20,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        zIndex: 3,
+    },
     circleButton: {
         width: 60,
         height: 60,
