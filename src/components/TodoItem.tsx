@@ -54,6 +54,9 @@ export const TodoItem = ({ todo, onUpdate, onDelete }: Props) => {
                 <StatusButton onPress={updateStatus} todoStatus={todo.status} managingStatus={TodoStatus.done} title="Done" />
                 <StatusButton onPress={updateStatus} todoStatus={todo.status} managingStatus={TodoStatus.wontDo} title="Won't do" />
             </View>
+            {/* <View style={{ position: 'absolute' }}>
+                <Text>000000000000000000000000000000000</Text>
+            </View> */}
         </View>
     </View>;
 };

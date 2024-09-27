@@ -2,8 +2,9 @@ import { Keyboard, Platform, StyleSheet, View } from 'react-native';
 import { PRIMARY_COLOR } from '../../constants';
 import { Button, Icon } from 'react-native-elements';
 import React, { useEffect, useState } from 'react';
-import { AddTodoDialog } from './AddTodoDialog';
+import { EditTodoDialog } from './EditTodoDialog';
 import { Todo } from '../../types/todo';
+import { addTodo } from '../../api/requests/todo';
 
 interface Props {
     onNewItem: (item: Todo) => void;
@@ -12,6 +13,12 @@ interface Props {
 export const AddTodo = ({ onNewItem }: Props) => {
     const [addDialogActive, setAddDialogActive] = useState(false);
     const [hideAddButton, setHideAddButton] = useState(false);
+
+    const addNewTodo = (title: string, description: string) => {
+        addTodo(title, description).then(newTodo => {
+            onNewItem(newTodo);
+        });
+    };
 
     useEffect(() => {
         const showSubscription = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow', () => {
@@ -31,37 +38,25 @@ export const AddTodo = ({ onNewItem }: Props) => {
     }, [addDialogActive]);
 
     return (
-        <View style={styles.circleButtonContainer}>
-            <AddTodoDialog onNewItem={onNewItem} visible={addDialogActive} onClose={() => setAddDialogActive(false)} />
-
-            {!hideAddButton && <Button
-                title=""
-                buttonStyle={styles.circleButton}
-                onPress={() => setAddDialogActive(true)}
-                icon={
-                    <Icon
-                        name="add"
-                        type="material"
-                        size={32}
-                        color="white"
-                    />
-                }
-            />}
-        </View>
+            <><EditTodoDialog onEditEnd={addNewTodo} visible={addDialogActive} onClose={() => setAddDialogActive(false)} />
+                {!hideAddButton && <Button
+                    title=""
+                    buttonStyle={styles.circleButton}
+                    onPress={() => setAddDialogActive(true)}
+                    icon={
+                        <Icon
+                            name="add"
+                            type="material"
+                            size={32}
+                            color="white"
+                        />
+                    }
+                />}
+            </>
     );
 };
 
 const styles = StyleSheet.create({
-    circleButtonContainer: {
-        position: 'absolute',
-        bottom: 20,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        zIndex: 3,
-    },
     circleButton: {
         width: 60,
         height: 60,

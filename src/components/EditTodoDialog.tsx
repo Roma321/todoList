@@ -4,32 +4,31 @@ import { Input } from 'react-native-elements';
 import { LILAC_COLOR, PRIMARY_COLOR } from '../../constants';
 import CustomButton from './CustomButton';
 import { Todo } from '../../types/todo';
-import { addTodo } from '../../api/requests/todo';
 
 interface Props {
     visible: boolean;
-    onNewItem: (item: Todo) => void;
+    onEditEnd: (title: string, description: string) => void;
     onClose: () => void;
+    initTodo?: Todo;
 }
 
-export const AddTodoDialog = ({ visible, onClose, onNewItem }: Props) => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+export const EditTodoDialog = ({ visible, onClose, onEditEnd, initTodo }: Props) => {
+    const [title, setTitle] = useState(initTodo?.title ?? '');
+    const [description, setDescription] = useState(initTodo?.description ?? '');
+
     if (!visible) { return null; }
 
-    const addNewTodo = () => {
-        addTodo(title, description).then(newTodo => {
-            onNewItem(newTodo);
-            onClose();
-        });
+    const _onEditEnd = () => {
+        onEditEnd(title, description);
+        onClose();
     };
+    
     return (
         <View style={styles.container}>
             <Input
                 value={title}
                 onChangeText={setTitle}
                 inputContainerStyle={{ borderBottomWidth: 0 }}
-                underlineColorAndroid="transparent"
                 style={styles.input}
                 placeholder="Title"
             />
@@ -45,7 +44,7 @@ export const AddTodoDialog = ({ visible, onClose, onNewItem }: Props) => {
             />
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                 <CustomButton fontSize={16} color={PRIMARY_COLOR} title="Cancel" onPress={onClose} type="outlined" width={121} height={36} />
-                <CustomButton fontSize={16} color={PRIMARY_COLOR} title="Done" onPress={addNewTodo} type="solid" width={121} height={36} />
+                <CustomButton fontSize={16} color={PRIMARY_COLOR} title="Done" onPress={_onEditEnd} type="solid" width={121} height={36} />
             </View>
         </View>
     );
