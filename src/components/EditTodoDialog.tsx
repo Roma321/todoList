@@ -1,28 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input } from 'react-native-elements';
 import { LILAC_COLOR, PRIMARY_COLOR } from '../../constants';
 import CustomButton from './CustomButton';
 import { Todo } from '../../types/todo';
+import { TodoInEdit } from '../../types/todoInEdit';
 
 interface Props {
     visible: boolean;
-    onEditEnd: (title: string, description: string) => void;
+    onEditEnd: (todo: TodoInEdit) => void;
     onClose: () => void;
-    initTodo?: Todo;
+    initTodo?: TodoInEdit;
 }
 
 export const EditTodoDialog = ({ visible, onClose, onEditEnd, initTodo }: Props) => {
     const [title, setTitle] = useState(initTodo?.title ?? '');
     const [description, setDescription] = useState(initTodo?.description ?? '');
+    useEffect(() => {
+        if (initTodo) {
+            setTitle(initTodo.title);
+            setDescription(initTodo.description);
+        }
+    }, [initTodo])
 
     if (!visible) { return null; }
 
     const _onEditEnd = () => {
-        onEditEnd(title, description);
+        if (initTodo) {
+            onEditEnd({ id: initTodo?.id, description, title });
+        }
         onClose();
+
     };
-    
+
     return (
         <View style={styles.container}>
             <Input
