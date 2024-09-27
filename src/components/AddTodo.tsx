@@ -3,14 +3,13 @@ import { PRIMARY_COLOR } from '../../constants';
 import { Button, Icon } from 'react-native-elements';
 import React, { useState } from 'react';
 import { AddTodoDialog } from './AddTodoDialog';
-import CustomButton from './CustomButton';
 import { Todo } from '../../types/todo';
 
 interface Props {
     onNewItem: (item: Todo) => void;
 }
 
-export const AddTodo = ({onNewItem }: Props) => {
+export const AddTodo = ({ onNewItem }: Props) => {
     const [addDialogActive, setAddDialogActive] = useState(false);
     return (
         <View style={styles.circleButtonContainer}>
@@ -42,6 +41,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
+        zIndex: 3,
     },
     circleButton: {
         width: 60,

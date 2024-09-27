@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
 import { Todo } from './types/todo';
 import { getTodos } from './api/requests/todo';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { LILAC_COLOR, PRIMARY_COLOR } from './constants';
 import { RadialGradientCircle } from './src/components/RadialGradientCircle';
 import { AddTodo } from './src/components/AddTodo';
-import CustomButton from './src/components/CustomButton';
+import { TodoItem } from './src/components/TodoItem';
 
 function App(): React.JSX.Element {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -22,7 +22,7 @@ function App(): React.JSX.Element {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <CustomButton title="Don000e" onPress={() => { }} width={150} type="outlined" />
+        <FlatList style={{ zIndex: 2, width: '100%', padding: 20 }} data={todos} renderItem={(todo) => <TodoItem todo={todo.item} />} />
         <RadialGradientCircle
           color={'#e1dca2'}
           radius={250}
