@@ -3,8 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import { Input } from 'react-native-elements';
 import { LILAC_COLOR, PRIMARY_COLOR } from '../../constants';
 import CustomButton from './CustomButton';
-import { Todo } from '../../types/todo';
 import { TodoInEdit } from '../../types/todoInEdit';
+import Toast from 'react-native-toast-message';
 
 interface Props {
     visible: boolean;
@@ -21,12 +21,20 @@ export const EditTodoDialog = ({ visible, onClose, onEditEnd, initTodo }: Props)
             setTitle(initTodo.title);
             setDescription(initTodo.description);
         }
-    }, [initTodo])
+    }, [initTodo]);
 
     if (!visible) { return null; }
 
     const _onEditEnd = () => {
         if (initTodo) {
+            if (!description || !title) {
+                Toast.show({
+                    type: 'error',
+                    text1: 'You need to fill both fields!',
+                });
+                return;
+            }
+
             onEditEnd({ id: initTodo?.id, description, title });
         }
         onClose();
@@ -52,7 +60,7 @@ export const EditTodoDialog = ({ visible, onClose, onEditEnd, initTodo }: Props)
                 numberOfLines={6}
                 textAlignVertical="top"
             />
-            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={styles.buttonsContainer}>
                 <CustomButton fontSize={16} color={PRIMARY_COLOR} title="Cancel" onPress={onClose} type="outlined" width={121} height={36} />
                 <CustomButton fontSize={16} color={PRIMARY_COLOR} title="Done" onPress={_onEditEnd} type="solid" width={121} height={36} />
             </View>
@@ -80,5 +88,10 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: LILAC_COLOR,
         borderRadius: 8,
+    },
+    buttonsContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
 });

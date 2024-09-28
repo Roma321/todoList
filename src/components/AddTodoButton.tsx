@@ -1,4 +1,4 @@
-import { Keyboard, Platform, StyleSheet, View } from 'react-native';
+import { Keyboard, Platform, StyleSheet } from 'react-native';
 import { PRIMARY_COLOR } from '../../constants';
 import { Button, Icon } from 'react-native-elements';
 import React, { useEffect, useState } from 'react';
@@ -15,7 +15,7 @@ export const AddTodoButton = ({ onPress }: Props) => {
             setHideAddButton(true);
         });
 
-        const hideSubscription = Keyboard.addListener(Platform.OS == 'ios' ? 'keyboardWillHide' : 'keyboardDidHide', () => {
+        const hideSubscription = Keyboard.addListener(Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide', () => {
             setHideAddButton(false);
         });
 

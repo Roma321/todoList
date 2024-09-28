@@ -1,22 +1,25 @@
-import { LILAC_COLOR } from "../../constants"
-import { RadialGradientCircle } from "./RadialGradientCircle"
+import { Image, StyleSheet, Dimensions } from 'react-native';
+import circlesImage from '../assets/bg_circles.png';
+import React from 'react';
+
+const { width, height } = Dimensions.get('window');
 
 export const Circles = () => {
-    return <>
-        <RadialGradientCircle
-            color={'#e1dca2'}
-            radius={250}
-            top={120}
-            right={0} />
-        <RadialGradientCircle
-            color={'#bff7ff'}
-            radius={200}
-            top={450}
-            left={0} />
-        <RadialGradientCircle
-            color={LILAC_COLOR}
-            radius={250}
-            top={150}
-            left={150} />
-    </>
-}
+    return (
+        <Image
+            source={circlesImage}
+            style={styles.backgroundImage}
+        />
+    );
+};
+
+const styles = StyleSheet.create({
+    backgroundImage: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: width,
+        height: height,
+        resizeMode: 'cover',
+    },
+});

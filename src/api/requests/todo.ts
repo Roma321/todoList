@@ -24,5 +24,5 @@ export function deleteTodo(id: number) {
 }
 
 export function updateTodo(id: number, title: string, description: string) {
-    return api.put(`v1/todo/${id}`, { json: { title, description } }).json<Todo>()
+    return api.put(`v1/todo/${id}`, { json: { title, description } }).json<Todo>();
 }

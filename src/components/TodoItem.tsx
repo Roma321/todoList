@@ -1,7 +1,7 @@
-import { ColorValue, StyleSheet, View } from 'react-native';
+import { ColorValue, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Todo } from '../../types/todo';
 import { Text } from 'react-native-elements';
-import React from 'react';
+import React, { useState } from 'react';
 import EditIcon from '../assets/Edit.svg';
 import DeleteIcon from '../assets/Delete.svg';
 import { TodoStatus } from '../../types/todoStatus';
@@ -24,6 +24,8 @@ export const STATUS_TO_COLOR: Record<TodoStatus, ColorValue> = {
 
 export const TodoItem = ({ todo, onUpdate, onDelete, onEditPressed }: Props) => {
 
+    const [buttonRowVisible, setButtonRowVisible] = useState(false);
+
     const updateStatus = (status: TodoStatus) => {
         updateTodoStatus(todo.id, status).then(onUpdate);
     };
@@ -31,9 +33,13 @@ export const TodoItem = ({ todo, onUpdate, onDelete, onEditPressed }: Props) => 
     const deleteTodo = () => {
         deleteTodoAPI(todo.id).then(() => onDelete(todo.id));
     };
-    
+
+    const toggleButtonRowVisible = () => {
+        setButtonRowVisible(!buttonRowVisible);
+    };
+
     return <View style={styles.outerContainer}>
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={toggleButtonRowVisible}>
             <View style={styles.mainRow}>
                 <View style={styles.infoBlock}>
                     <View style={[styles.circle, { backgroundColor: STATUS_TO_COLOR[todo.status] }]} />
@@ -51,12 +57,12 @@ export const TodoItem = ({ todo, onUpdate, onDelete, onEditPressed }: Props) => 
                     </View>
                 </View>
             </View>
-            <View style={styles.buttonRow}>
+            {buttonRowVisible && <View style={styles.buttonRow}>
                 <StatusButton onPress={updateStatus} todoStatus={todo.status} managingStatus={TodoStatus.pending} title="Pending" />
                 <StatusButton onPress={updateStatus} todoStatus={todo.status} managingStatus={TodoStatus.done} title="Done" />
                 <StatusButton onPress={updateStatus} todoStatus={todo.status} managingStatus={TodoStatus.wontDo} title="Won't do" />
-            </View>
-        </View>
+            </View>}
+        </TouchableOpacity>
     </View>;
 };
 

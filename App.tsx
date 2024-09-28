@@ -8,6 +8,7 @@ import { TodoItem } from './src/components/TodoItem';
 import { Circles } from './src/components/Circles';
 import { EditTodoDialog } from './src/components/EditTodoDialog';
 import { TodoInEdit } from './types/todoInEdit';
+import Toast from 'react-native-toast-message';
 
 function App(): React.JSX.Element {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -35,19 +36,19 @@ function App(): React.JSX.Element {
 
   const onEditPressed = (todo: Todo) => {
     setTodoInEdit(todo);
-  }
+  };
 
   const updateTodo = ({ id, title, description }: TodoInEdit) => {
     updateTodoAPI(id!, title, description).then((updatedTodo) => onUpdate(updatedTodo));
-  }
+  };
 
-  const onEditDialogEnd = (todoInEdit: TodoInEdit) => {
-    if (todoInEdit.id) {
-      updateTodo(todoInEdit)
+  const onEditDialogEnd = (_todoInEdit: TodoInEdit) => {
+    if (_todoInEdit.id) {
+      updateTodo(_todoInEdit);
     } else {
-      addNewTodo(todoInEdit);
+      addNewTodo(_todoInEdit);
     }
-  }
+  };
 
   const addNewTodo = ({ title, description }: TodoInEdit) => {
     addTodo(title, description).then(newTodo => {
@@ -56,20 +57,23 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <Circles />
-        <FlatList style={{ zIndex: 2, width: '100%', padding: 20 }} data={todos} renderItem={(todo) => <TodoItem onEditPressed={onEditPressed} onDelete={onDelete} onUpdate={onUpdate} todo={todo.item} />} />
+    <>
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.container}>
+          <Circles />
+          <FlatList style={{ zIndex: 2, width: '100%', padding: 20 }} data={todos} renderItem={(todo) => <TodoItem onEditPressed={onEditPressed} onDelete={onDelete} onUpdate={onUpdate} todo={todo.item} />} />
 
-        <View style={styles.circleButtonContainer}>
-          <EditTodoDialog initTodo={todoInEdit} onEditEnd={onEditDialogEnd} visible={!!todoInEdit} onClose={() => setTodoInEdit(undefined)} />
+          <View style={styles.circleButtonContainer}>
+            <EditTodoDialog initTodo={todoInEdit} onEditEnd={onEditDialogEnd} visible={!!todoInEdit} onClose={() => setTodoInEdit(undefined)} />
 
-          <AddTodoButton onPress={() => {
-            return setTodoInEdit({ id: null, title: '', description: '' });
-          }} />
-        </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
+            <AddTodoButton onPress={() => {
+              return setTodoInEdit({ id: null, title: '', description: '' });
+            }} />
+          </View>
+        </SafeAreaView>
+      </SafeAreaProvider>
+      <Toast />
+    </>
   );
 }
 
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     zIndex: 5,
-    width: '100%'
+    width: '100%',
   },
 });
 
