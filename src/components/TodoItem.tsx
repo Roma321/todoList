@@ -49,12 +49,12 @@ export const TodoItem = ({ todo, onUpdate, onDelete, onEditPressed }: Props) => 
                     </View>
                 </View>
                 <View style={styles.icons}>
-                    <View style={styles.icon}>
-                        <EditIcon onPress={() => onEditPressed(todo)} />
-                    </View>
-                    <View style={styles.icon}>
-                        <DeleteIcon onPress={deleteTodo} />
-                    </View>
+                    <TouchableOpacity onPress={() => onEditPressed(todo)} style={styles.icon}>
+                        <EditIcon />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={deleteTodo} style={styles.icon}>
+                        <DeleteIcon />
+                    </TouchableOpacity>
                 </View>
             </View>
             {buttonRowVisible && <View style={styles.buttonRow}>
