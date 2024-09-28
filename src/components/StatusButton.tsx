@@ -1,4 +1,4 @@
-import { TodoStatus } from '../../types/todoStatus';
+import { TodoStatus } from '../types/todoStatus';
 import CustomButton from './CustomButton';
 import { STATUS_TO_COLOR } from './TodoItem';
 import React from 'react';

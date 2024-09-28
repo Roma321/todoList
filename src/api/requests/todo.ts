@@ -1,5 +1,5 @@
-import { Todo } from '../../../types/todo';
-import { TodoStatus } from '../../../types/todoStatus';
+import { Todo } from '../../types/todo';
+import { TodoStatus } from '../../types/todoStatus';
 import api from '../api';
 
 export function getTodos() {

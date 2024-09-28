@@ -1,5 +1,5 @@
 import { Keyboard, Platform, StyleSheet } from 'react-native';
-import { PRIMARY_COLOR } from '../../constants';
+import { theme } from '../theme';
 import { Button, Icon } from 'react-native-elements';
 import React, { useEffect, useState } from 'react';
 
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 30,
-        backgroundColor: PRIMARY_COLOR,
+        backgroundColor: theme.colors.primary,
         justifyContent: 'center',
         alignItems: 'center',
     },

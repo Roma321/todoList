@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input } from 'react-native-elements';
-import { LILAC_COLOR, PRIMARY_COLOR } from '../../constants';
+import { theme } from '../theme';
 import CustomButton from './CustomButton';
-import { TodoInEdit } from '../../types/todoInEdit';
+import { TodoInEdit } from '../types/todoInEdit';
 import Toast from 'react-native-toast-message';
 
 interface Props {
@@ -46,14 +46,14 @@ export const EditTodoDialog = ({ visible, onClose, onEditEnd, initTodo }: Props)
             <Input
                 value={title}
                 onChangeText={setTitle}
-                inputContainerStyle={{ borderBottomWidth: 0 }}
+                inputContainerStyle={styles.noUnderline}
                 style={styles.input}
                 placeholder="Title"
             />
             <Input
                 value={description}
                 onChangeText={setDescription}
-                inputContainerStyle={{ borderBottomWidth: 0 }}
+                inputContainerStyle={styles.noUnderline}
                 style={styles.input}
                 placeholder="Description"
                 multiline
@@ -61,8 +61,8 @@ export const EditTodoDialog = ({ visible, onClose, onEditEnd, initTodo }: Props)
                 textAlignVertical="top"
             />
             <View style={styles.buttonsContainer}>
-                <CustomButton fontSize={16} color={PRIMARY_COLOR} title="Cancel" onPress={onClose} type="outlined" width={121} height={36} />
-                <CustomButton fontSize={16} color={PRIMARY_COLOR} title="Done" onPress={_onEditEnd} type="solid" width={121} height={36} />
+                <CustomButton fontSize={16} color={theme.colors.primary} title="Cancel" onPress={onClose} type="outlined" width={121} height={36} />
+                <CustomButton fontSize={16} color={theme.colors.primary} title="Done" onPress={_onEditEnd} type="solid" width={121} height={36} />
             </View>
         </View>
     );
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         margin: 20,
         paddingVertical: 20,
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.background,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -86,12 +86,15 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     input: {
-        backgroundColor: LILAC_COLOR,
+        backgroundColor: theme.colors.secondary,
         borderRadius: 8,
     },
     buttonsContainer: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+    },
+    noUnderline: {
+        borderBottomWidth: 0,
     },
 });

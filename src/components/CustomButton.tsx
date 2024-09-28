@@ -1,6 +1,7 @@
 import React from 'react';
 import { ColorValue, StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { Path, Text } from 'react-native-svg';
+import { theme } from '../theme';
 
 interface Props {
   title: string;
@@ -23,7 +24,7 @@ export const CustomButton = ({ onPress, title, width, height, type, color, fontS
         <Path
           transform={`scale(${scaleX},${scaleY})`}
           d={type === 'outlined' ? OUTLINED_PATH : SOLID_PATH}
-          fill={type === 'solid' ? color : 'white'}
+          fill={type === 'solid' ? color : theme.colors.background}
           stroke={type === 'outlined' ? color : 'transparent'}
           strokeWidth={type === 'outlined' ? 1 : 0}
         />
@@ -32,7 +33,7 @@ export const CustomButton = ({ onPress, title, width, height, type, color, fontS
           y={36 / 2 * scaleY}
           alignmentBaseline="central"
           textAnchor="middle"
-          fill={type === 'solid' ? 'white' : color}
+          fill={type === 'solid' ? theme.colors.background : color}
           fontSize={fontSize}
         >
           {title}

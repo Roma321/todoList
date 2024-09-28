@@ -1,11 +1,11 @@
 import { ColorValue, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Todo } from '../../types/todo';
+import { Todo } from '../types/todo';
 import { Text } from 'react-native-elements';
 import React, { useState } from 'react';
 import EditIcon from '../assets/Edit.svg';
 import DeleteIcon from '../assets/Delete.svg';
-import { TodoStatus } from '../../types/todoStatus';
-import { DONE_COLOR, PENDING_COLOR, WONT_DO_COLOR } from '../../constants';
+import { TodoStatus } from '../types/todoStatus';
+import { theme } from '../theme';
 import { StatusButton } from './StatusButton';
 import { updateTodoStatus, deleteTodo as deleteTodoAPI } from '../api/requests/todo';
 
@@ -17,9 +17,9 @@ interface Props {
 }
 
 export const STATUS_TO_COLOR: Record<TodoStatus, ColorValue> = {
-    [TodoStatus.pending]: PENDING_COLOR,
-    [TodoStatus.wontDo]: WONT_DO_COLOR,
-    [TodoStatus.done]: DONE_COLOR,
+    [TodoStatus.pending]: theme.colors.pending,
+    [TodoStatus.wontDo]: theme.colors['wont-do'],
+    [TodoStatus.done]: theme.colors.done,
 };
 
 export const TodoItem = ({ todo, onUpdate, onDelete, onEditPressed }: Props) => {
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     },
     container: {
         padding: 16,
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.background,
         borderRadius: 15,
         elevation: 1,
         shadowColor: '#000',

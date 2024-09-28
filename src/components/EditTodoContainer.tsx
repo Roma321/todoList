@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { EditTodoDialog } from './EditTodoDialog';
 import { AddTodoButton } from './AddTodoButton';
-import { TodoInEdit } from '../../types/todoInEdit';
+import { TodoInEdit } from '../types/todoInEdit';
 import { updateTodo as updateTodoAPI, addTodo } from '../api/requests/todo';
 
 interface Props {

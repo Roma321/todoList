@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
-import { Todo } from './types/todo';
+import { Todo } from './src/types/todo';
 import { getTodos } from './src/api/requests/todo';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TodoItem } from './src/components/TodoItem';
 import { Circles } from './src/components/Circles';
-import { TodoInEdit } from './types/todoInEdit';
+import { TodoInEdit } from './src/types/todoInEdit';
 import Toast from 'react-native-toast-message';
 import EditTodoContainer from './src/components/EditTodoContainer';
 
@@ -42,7 +42,11 @@ function App(): React.JSX.Element {
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <Circles />
-          <FlatList style={{ zIndex: 2, width: '100%', padding: 20 }} data={todos} renderItem={(todo) => <TodoItem onEditPressed={onEditPressed} onDelete={onDelete} onUpdate={onUpdate} todo={todo.item} />} />
+          <FlatList
+            style={styles.list}
+            data={todos}
+            renderItem={({ item }) => <TodoItem onEditPressed={onEditPressed} onDelete={onDelete} onUpdate={onUpdate} todo={item} />}
+          />
           <EditTodoContainer
             todoInEdit={todoInEdit}
             onUpdate={onUpdate}
@@ -61,6 +65,11 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  list: {
+    zIndex: 2,
+    width: '100%',
+    padding: 20,
   },
 });
 
