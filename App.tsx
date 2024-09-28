@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
 import { Todo } from './types/todo';
-import { addTodo, getTodos, updateTodo as updateTodoAPI } from './src/api/requests/todo';
+import { getTodos } from './src/api/requests/todo';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { AddTodoButton } from './src/components/AddTodoButton';
 import { TodoItem } from './src/components/TodoItem';
 import { Circles } from './src/components/Circles';
-import { EditTodoDialog } from './src/components/EditTodoDialog';
 import { TodoInEdit } from './types/todoInEdit';
 import Toast from 'react-native-toast-message';
+import EditTodoContainer from './src/components/EditTodoContainer';
 
 function App(): React.JSX.Element {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -38,42 +37,22 @@ function App(): React.JSX.Element {
     setTodoInEdit(todo);
   };
 
-  const updateTodo = ({ id, title, description }: TodoInEdit) => {
-    updateTodoAPI(id!, title, description).then((updatedTodo) => onUpdate(updatedTodo));
-  };
-
-  const onEditDialogEnd = (_todoInEdit: TodoInEdit) => {
-    if (_todoInEdit.id) {
-      updateTodo(_todoInEdit);
-    } else {
-      addNewTodo(_todoInEdit);
-    }
-  };
-
-  const addNewTodo = ({ title, description }: TodoInEdit) => {
-    addTodo(title, description).then(newTodo => {
-      onNewItem(newTodo);
-    });
-  };
-
   return (
     <>
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <Circles />
           <FlatList style={{ zIndex: 2, width: '100%', padding: 20 }} data={todos} renderItem={(todo) => <TodoItem onEditPressed={onEditPressed} onDelete={onDelete} onUpdate={onUpdate} todo={todo.item} />} />
-
-          <View style={styles.circleButtonContainer}>
-            <EditTodoDialog initTodo={todoInEdit} onEditEnd={onEditDialogEnd} visible={!!todoInEdit} onClose={() => setTodoInEdit(undefined)} />
-
-            <AddTodoButton onPress={() => {
-              return setTodoInEdit({ id: null, title: '', description: '' });
-            }} />
-          </View>
+          <EditTodoContainer
+            todoInEdit={todoInEdit}
+            onUpdate={onUpdate}
+            onNewItem={onNewItem}
+          />
         </SafeAreaView>
       </SafeAreaProvider>
       <Toast />
     </>
+
   );
 }
 
@@ -82,16 +61,6 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  circleButtonContainer: {
-    position: 'absolute',
-    bottom: 20,
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    alignSelf: 'center',
-    zIndex: 5,
-    width: '100%',
   },
 });
 
