@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.primary,
         justifyContent: 'center',
         alignItems: 'center',
+        zIndex: 3,
     },
 });
 

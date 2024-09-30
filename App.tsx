@@ -8,6 +8,7 @@ import { Circles } from './src/components/Circles';
 import { TodoInEdit } from './src/types/todoInEdit';
 import Toast from 'react-native-toast-message';
 import EditTodoContainer from './src/components/EditTodoContainer';
+import { Text } from 'react-native-elements';
 
 function App(): React.JSX.Element {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -42,6 +43,7 @@ function App(): React.JSX.Element {
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <Circles />
+          <Text style={styles.appHeader} >My To-Do</Text>
           <FlatList
             style={styles.list}
             data={todos}
@@ -66,10 +68,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  appHeader: {
+    fontSize: 19,
+    marginHorizontal: 'auto',
+    marginTop: 28,
+    marginBottom: 34,
+  },
   list: {
     zIndex: 2,
     width: '100%',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 100,
+    marginBottom: 100,
   },
 });
 

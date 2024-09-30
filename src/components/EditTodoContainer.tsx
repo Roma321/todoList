@@ -67,8 +67,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
         alignSelf: 'center',
-        zIndex: 5,
-        width: '100%',
+        zIndex: 3,
     },
 });
 
