@@ -128,5 +128,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginTop: 4,
         paddingHorizontal: 8,
+        paddingBottom: 12,
     },
 });

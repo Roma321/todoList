@@ -46,7 +46,6 @@ export const EditTodoDialog = ({ visible, onClose, onEditEnd, initTodo }: Props)
             <Input
                 value={title}
                 onChangeText={setTitle}
-                containerStyle={styles.noUnderline}
                 inputContainerStyle={styles.noUnderline}
                 style={styles.input}
                 placeholder="Title"
@@ -54,7 +53,6 @@ export const EditTodoDialog = ({ visible, onClose, onEditEnd, initTodo }: Props)
             <Input
                 value={description}
                 onChangeText={setDescription}
-                containerStyle={styles.noUnderline}
                 inputContainerStyle={styles.noUnderline}
                 style={[styles.input, styles.bigInput]}
                 placeholder="Description"
@@ -103,7 +101,5 @@ const styles = StyleSheet.create({
     },
     noUnderline: {
         borderBottomWidth: 0,
-        margin: 0,
-        padding: 0,
     },
 });
