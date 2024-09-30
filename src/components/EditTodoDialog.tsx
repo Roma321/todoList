@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.secondary,
         borderRadius: 8,
         paddingHorizontal: 8,
+        color: theme.colors.lightTextColor,
     },
     height150: {
         height: 150,

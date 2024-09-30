@@ -6,5 +6,7 @@ export const theme = {
         'wont-do': '#D62828',
         done: '#588157',
         background: '#FFFFFF',
+        textColor: 'black',
+        lightTextColor: 'grey',
     },
 };

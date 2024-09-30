@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.background,
         borderRadius: 15,
         elevation: 1,
-        shadowColor: '#000',
+        shadowColor: theme.colors.textColor,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 2,
@@ -104,11 +104,11 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 9,
-        color: 'grey',
+        color: theme.colors.lightTextColor,
     },
     description: {
         fontSize: 14,
-        color: 'black',
+        color: theme.colors.textColor,
     },
     icons: {
         flexDirection: 'row',
