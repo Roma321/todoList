@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Input } from 'react-native-elements';
 import { theme } from '../theme';
-import CustomButton from './CustomButton';
+import DialogButton from './DialogButton';
 import { TodoInEdit } from '../types/todoInEdit';
 import Toast from 'react-native-toast-message';
 
@@ -61,8 +61,8 @@ export const EditTodoDialog = ({ visible, onClose, onEditEnd, initTodo }: Props)
                 textAlignVertical="top"
             />
             <View style={styles.buttonsContainer}>
-                <CustomButton fontSize={16} color={theme.colors.primary} title="Cancel" onPress={onClose} type="outlined" width={121} height={36} />
-                <CustomButton fontSize={16} color={theme.colors.primary} title="Done" onPress={_onEditEnd} type="solid" width={121} height={36} />
+                <DialogButton color={theme.colors.primary} title="Cancel" onPress={onClose} type="outlined" />
+                <DialogButton color={theme.colors.primary} title="Done" onPress={_onEditEnd} type="solid" />
             </View>
         </View>
     );

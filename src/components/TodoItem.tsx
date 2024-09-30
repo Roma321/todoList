@@ -43,7 +43,7 @@ export const TodoItem = ({ todo, onUpdate, onDelete, onEditPressed }: Props) => 
             <View style={styles.mainRow}>
                 <View style={styles.infoBlock}>
                     <View style={[styles.circle, { backgroundColor: STATUS_TO_COLOR[todo.status] }]} />
-                    <View>
+                    <View style={styles.infoRow}>
                         <Text style={styles.title}>{todo.title}</Text>
                         <Text style={styles.description}>{todo.description}</Text>
                     </View>
@@ -74,10 +74,10 @@ const styles = StyleSheet.create({
         alignContent: 'center',
     },
     container: {
-        padding: 16,
         backgroundColor: theme.colors.background,
         borderRadius: 15,
         elevation: 1,
+        padding: 8,
         shadowColor: theme.colors.textColor,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
@@ -88,12 +88,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        paddingRight: 16,
     },
     infoBlock: {
         flexDirection: 'row',
         alignItems: 'center',
         flex: 6,
         paddingRight: 8,
+    },
+    infoRow: {
+        paddingVertical: 8,
     },
     circle: {
         width: 16,
@@ -123,5 +127,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop: 4,
+        paddingHorizontal: 8,
     },
 });

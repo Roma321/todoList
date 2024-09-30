@@ -34,7 +34,7 @@ function App(): React.JSX.Element {
   };
 
   const onEditPressed = (todo: Todo) => {
-    setTodoInEdit(todo);
+    setTodoInEdit({ ...todo });
   };
 
   return (
