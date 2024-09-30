@@ -54,7 +54,7 @@ export const EditTodoDialog = ({ visible, onClose, onEditEnd, initTodo }: Props)
                 value={description}
                 onChangeText={setDescription}
                 inputContainerStyle={styles.noUnderline}
-                style={styles.input}
+                style={[styles.input, styles.height150]}
                 placeholder="Description"
                 multiline
                 numberOfLines={6}
@@ -88,6 +88,10 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: theme.colors.secondary,
         borderRadius: 8,
+        paddingHorizontal: 8,
+    },
+    height150: {
+        height: 150,
     },
     buttonsContainer: {
         display: 'flex',

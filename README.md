@@ -11,10 +11,7 @@ First, you will need to start **Metro**, the JavaScript _bundler_ that ships _wi
 To start Metro, run the following command from the _root_ of your React Native project:
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
+yarn
 yarn start
 ```
 
@@ -25,20 +22,19 @@ Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _roo
 ### For Android
 
 ```bash
-# using npm
-npm run android
 
-# OR using Yarn
 yarn android
 ```
 
 ### For iOS
-
 ```bash
-# using npm
-npm run ios
+cd ios 
 
-# OR using Yarn
+pod install
+
+```
+```bash
+
 yarn ios
 ```
 
